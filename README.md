@@ -15,10 +15,10 @@ This project is a frontend application for Video Wallah (My youtube) platform, d
 
 ## Technologies Used
 
-- ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) React: A JavaScript library for building user interfaces.
-- ![Vite](https://img.shields.io/badge/Vite-64B64D?style=flat&logo=vite&logoColor=white) Vite: A fast build tool and development server for modern web projects.
-- ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white) Axios: For making API requests.
-- ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=white) React Router: For handling navigation within the application.
+- ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)  A JavaScript library for building user interfaces.
+- ![Vite](https://img.shields.io/badge/Vite-64B64D?style=flat&logo=vite&logoColor=white)  A fast build tool and development server for modern web projects.
+- ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white)  For making API requests.
+- ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=white)  For handling navigation within the application.
 
 ## Project Structure
 youtube-frontend/
