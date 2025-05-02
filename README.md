@@ -1,29 +1,33 @@
-# YouTube Frontend Project
+# Video Wall 🎥
 
-<<<<<<< HEAD
-This project is a frontend part of MY YouTube, built using React. It mimics the core layout and features of MY YouTube's homepage, providing a clean and responsive user interface.
-=======
-## Overview
+Video Wall is a modern video hosting platform frontend, built using **React** and **Vite**. It provides a seamless and responsive user interface for browsing, watching, and interacting with video content. The platform mimics the core layout and features of popular video-sharing platforms, offering a clean and user-friendly experience.
 
-This project is a frontend application for Video Wallah (My youtube) platform, developed using React and Vite. The application provides a user-friendly interface for browsing, watching, and interacting with video content.
+---
 
-## Features
+## 🌟 Features
 
-- **User Authentication**: Users can register, log in, and manage their profiles.
-- **Video Browsing**: Users can browse a wide range of videos, categorized by genres.
-- **Search Functionality**: Users can search for specific videos using keywords.
-- **Video Playback**: Users can watch videos with a responsive player.
-- **Comments Section**: Users can leave comments on videos and interact with other viewers.
-- **Responsive Design**: The application is fully responsive, providing a seamless experience on both desktop and mobile devices.
+- **🔒 User Authentication**: Register, log in, and manage user profiles.
+- **📹 Video Browsing**: Explore a wide range of videos categorized by genres.
+- **🔍 Search Functionality**: Search for specific videos using keywords.
+- **🎬 Video Playback**: Watch videos with a responsive and modern video player.
+- **💬 Comments Section**: Leave comments and interact with other viewers.
+- **📱 Responsive Design**: Fully optimized for both desktop and mobile devices.
 
-## Technologies Used
+---
 
-- ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)  A JavaScript library for building user interfaces.
-- ![Vite](https://img.shields.io/badge/Vite-64B64D?style=flat&logo=vite&logoColor=white)  A fast build tool and development server for modern web projects.
-- ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white)  For making API requests.
-- ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=white)  For handling navigation within the application.
+## 🚀 Technologies Used
 
-## Project Structure
+| **Technology**       | **Description**                                                                 |
+|-----------------------|---------------------------------------------------------------------------------|
+| ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) | A JavaScript library for building user interfaces.                  |
+| ![Vite](https://img.shields.io/badge/Vite-64B64D?style=flat&logo=vite&logoColor=white)   | A fast build tool and development server for modern web projects.   |
+| ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white) | For making API requests.                                            |
+| ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=white) | For handling navigation within the application.                     |
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) | For styling the application with utility-first CSS.                 |
+
+---
+
+## 📂 Project Structure
 youtube-frontend/
 ├── public/ # Static files
 ├── src/ # Source files
@@ -34,4 +38,4 @@ youtube-frontend/
 │ └── index.jsx # Entry point
 ├── package.json # Project metadata and dependencies
 └── vite.config.js # Vite configuration
->>>>>>> 7e11586e4bb67a680767acdeecd6ee8aed5f240b
+
