@@ -1,30 +1,23 @@
-import Homepage from './components/pages/Homepage';
-import Login from './components/pages/Login';
-import Signup from './components/pages/Signup'; // Note: 'Signup' was lowercase, renamed for consistency.
-import UploadVideo from './components/pages/UploadVideo';
-import VideoDetail from './components/pages/VideoDetail';
-import Subscriptions from './components/pages/Subscriptions';
-import Profile from './components/pages/Profile';
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AppContext } from "./context/contextApi"; // Import AppContext
+import Homepage from "./components/pages/Homepage";
+import Login from "./components/pages/Signup/Login";
+import Signup from "./components/pages/Signup/Signup";
+import User from "./components/pages/User"; // Import the User component
 
 function App() {
-
   return (
-    <Router>
-      <div>
-        {/* Define the routes here */}
+    <AppContext>
+      <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/upload" element={<UploadVideo />} />
-          <Route path="/video/:id" element={<VideoDetail />} />
-          <Route path="/subscriptions" element={<Subscriptions />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/user" element={<User />} /> {/* Add the /user route */}
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </AppContext>
   );
 }
 

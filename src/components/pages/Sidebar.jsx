@@ -1,39 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Assuming you're using React Router
+import React from "react";
+import { Link } from "react-router-dom";
+import { FaHome, FaVideo, FaUser, FaCog } from "react-icons/fa"; // Example icons
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen }) => {
+  const links = [
+    { to: "/", label: "Home", icon: <FaHome /> },
+    { to: "/videos", label: "Videos", icon: <FaVideo /> },
+    { to: "/user", label: "User Settings", icon: <FaUser /> },
+    { to: "/settings", label: "Settings", icon: <FaCog /> },
+  ];
+
   return (
-    <aside className="bg-white w-60 p-4 shadow-md min-h-screen">
-      <ul className="space-y-4">
-        <li>
-          <Link to="/dashboard" className="text-gray-800 hover:text-red-600">Dashboard</Link>
+    <ul className="space-y-4 mt-6">
+      {links.map((link, index) => (
+        <li key={index} className="flex items-center justify-center">
+          <Link
+            to={link.to}
+            className={`flex items-center space-x-2 text-gray-700 hover:text-red-600 transition-all duration-300 ${
+              isOpen ? "justify-start px-4" : "justify-center"
+            }`}
+          >
+            <span className="text-2xl">{link.icon}</span>
+            {isOpen && <span className="text-sm font-medium">{link.label}</span>}
+          </Link>
         </li>
-        <li>
-          <Link to="/videos" className="text-gray-800 hover:text-red-600">Videos</Link>
-        </li>
-        <li>
-          <Link to="/playlists" className="text-gray-800 hover:text-red-600">Playlists</Link>
-        </li>
-        <li>
-          <Link to="/subscriptions" className="text-gray-800 hover:text-red-600">Subscriptions</Link>
-        </li>
-        <li>
-          <Link to="/comments" className="text-gray-800 hover:text-red-600">Comments</Link>
-        </li>
-        <li>
-          <Link to="/likes" className="text-gray-800 hover:text-red-600">Likes</Link>
-        </li>
-        <li>
-          <Link to="/tweets" className="text-gray-800 hover:text-red-600">Tweets</Link>
-        </li>
-        <li>
-          <Link to="/healthcheck" className="text-gray-800 hover:text-red-600">Health Check</Link>
-        </li>
-        <li>
-          <Link to="/user" className="text-gray-800 hover:text-red-600">User Settings</Link>
-        </li>
-      </ul>
-    </aside>
+      ))}
+    </ul>
   );
 };
 
