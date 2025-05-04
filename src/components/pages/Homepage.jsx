@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "C:/Users/mmaya/Downloads/youtube-logo-png-2067.png";
+import logo from "../../assets/youtube-logo-png-2067.png";
 import { videos } from "../../assets/video/videos.jsx";
 import VideoBox from "../pages/VideoBox.jsx";
 import { Context } from "../../context/contextApi.jsx";
@@ -153,7 +153,7 @@ const Homepage = () => {
 
         {/* Footer */}
         <footer className="bg-gray-900 text-white text-center py-6 mt-8">
-          <p>© 2024 MyTube. All rights reserved.</p>
+          <p>© 2024 Video Wall. All rights reserved.</p>
         </footer>
       </div>
     </div>
