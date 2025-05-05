@@ -21,7 +21,7 @@ const Homepage = () => {
     const fetchCurrentUser = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/api/v1/users/current-user",
+          "https://videos-wall.onrender.com/api/v1/users/current-user",
           {
             method: "GET",
             credentials: "include",
@@ -30,6 +30,9 @@ const Homepage = () => {
             },
           }
         );
+        console.log("Repone", response);
+        console.log(localStorage.getItem("accessToken"));
+        // console.log("Response:", response);
 
         if (response.ok) {
           const data = await response.json();

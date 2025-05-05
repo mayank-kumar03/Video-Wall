@@ -44,7 +44,8 @@ const Login = () => {
         password,
       });
       console.log("Login successful:", res.data);
-
+      localStorage.setItem("accessToken", res.data.data.accessToken);
+      console.log("my access token",localStorage.getItem("accessToken"));
       navigate("/");
     } catch (err) {
       console.error("Login error:", err);

@@ -22,9 +22,7 @@ const User = () => {
   // Fetch current user details
   const fetchCurrentUser = async () => {
     try {
-      const response = await axiosInstance.get("/users/current-user", {
-        withCredentials: true,
-      });
+      const response = await axiosInstance.get("/users/current-user");
       setAvatar(response.data.user_id.avatar);
       setUser(response.data);
       setUsername(response.data.user_id.username);
