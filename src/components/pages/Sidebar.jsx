@@ -7,7 +7,7 @@ const Sidebar = ({ isOpen }) => {
     { to: "/", label: "Home", icon: <FaHome /> },
     { to: "/videos", label: "Videos", icon: <FaVideo /> },
     { to: "/user", label: "User Settings", icon: <FaUser /> },
-    { to: "/settings", label: "Settings", icon: <FaCog /> },
+  
   ];
 
   return (
