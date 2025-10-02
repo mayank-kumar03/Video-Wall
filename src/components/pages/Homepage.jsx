@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/youtube-logo-png-2067.png";
+import { CiSearch } from "react-icons/ci";
+// import Avatar from 'react-avatar';
+import { IoMdMic } from "react-icons/io";
 import { videos } from "../../assets/video/videos.jsx";
 import VideoBox from "../pages/VideoBox.jsx";
 import { Context } from "../../context/contextApi.jsx";
@@ -94,11 +97,11 @@ const Homepage = () => {
       <div className="flex-grow">
         {/* Navbar */}
         <header className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-          <div className="relative w-full md:w-2/3 mx-auto">
+          <div className="flex relative w-full md:w-2/3 mx-auto">
             <input
               type="text"
               placeholder="Search videos..."
-              className="w-full py-2 pl-10 pr-4 border rounded-full border-gray-300 focus:outline-none focus:ring focus:ring-red-300"
+              className="w-full py-2 pl-10 pr-4 border rounded-l-full border-gray-300 focus:outline-none focus:ring focus:ring-red-300"
             />
             <svg
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -114,6 +117,8 @@ const Homepage = () => {
                 clipRule="evenodd"
               />
             </svg>
+            <button className="px-4 py-2 border bg-gray-100 rounded-r-full"><CiSearch className="text-xl" /></button>
+            <IoMdMic size={"40px"} className="ml-3 border rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200" />
           </div>
 
           {/* Right Corner - User Avatar or Sign In */}
