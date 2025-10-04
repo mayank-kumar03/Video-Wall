@@ -40,7 +40,11 @@ const User = () => {
     try {
       await axiosInstance.post("/users/logout", {}, { withCredentials: true });
       setUser(null);
-      navigate("/login");
+      setAvatar(null);
+     
+      setUsername(null);
+      setEmail(null);
+      navigate("/");
     } catch (error) {
       console.error("Error logging out:", error);
     }
