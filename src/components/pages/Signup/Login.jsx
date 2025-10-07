@@ -12,43 +12,38 @@ const Login = () => {
     setPassword,
     loading,
     setLoading,
+    avatar, setAvatar,
   } = useContext(Context);
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!username) {
-      newErrors.username = "Username is required.";
-    }
-    if (!password || password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters.";
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!validateForm()) {
-      setLoading(false);
-      return;
-    }
+    
 
     try {
       const res = await axiosInstance.post("/users/login", {
         username,
         password,
       });
-      console.log("Login successful:", res.data);
+    const response=res.data;
+      console.log("Login response: from login", response);
       localStorage.setItem("accessToken", res.data.data.accessToken);
-      console.log("my access token",localStorage.getItem("accessToken"));
+        // setAvatar(response.data.avatar);
+        // setProfilePicture(response.data.coverImage);
+
+        // localStorage.setItem("avatar", response.data.avatar);
+        // localStorage.setItem("profilePicture", response.data.coverImage);
+        setLoading(false);
+
+      
       navigate("/");
     } catch (err) {
-      console.error("Login error:", err);
+      
       setErrors({ api: "Invalid username or password. Please try again." });
     } finally {
       setLoading(false);

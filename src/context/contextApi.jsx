@@ -1,37 +1,42 @@
 import React, { createContext, useState, useEffect } from "react";
 import axiosInstance from "../utils/AxiosInstance";
 
-// import { fetchDataFromApi } from "../utils/api";
 export const Context = createContext();
 
 export const AppContext = ({ children }) => {
   const [loading, setLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Home");
-  const [mobileMenu, setMobileMenu] = useState(false);
-  const [isSideBarVisible, setSidebarVisible] = useState(false);
-
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
-  // const [avatarPreview, setAvatarPreview] = useState("");
-  // const [profilePicturePreview, setProfilePicturePreview] = useState("");
-  const [loginUsername, loginSetUsername] = useState("");
-  const [loginPassword, loginSetPassword] = useState("");
 
-  const [videoCategory, setVideoCategory] = useState("");
-  const [videoType, setVideoType] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  // 🔹 Fetch current user when app loads
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        setLoading(true);
+        const response = await axiosInstance.get("/users/current-user", {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+console.log("Current user response:", response.data);
+        if (response.data) {
+          setUsername(response.data?.user?.username || "");
+          setFullName(response.data?.user?.fullName || "");
+          setEmail(response.data?.user?.email || "");
+          setAvatar(response.data?.user?.avatar?.url || "https://via.placeholder.com/40");
+        }
+      } catch (error) {
+        console.error("❌ Error fetching user:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const [thumbnail, setThumbnail] = useState("");
-  const [videoFile, setVideoFile] = useState("");
-  const [duration, setDuration] = useState();
-  let avatarURL;
-  let coverImageURL;
+    fetchCurrentUser();
+  }, []);
 
   const toggleSideBar = () => {
     setSidebarVisible(!isSideBarVisible);
@@ -48,52 +53,18 @@ export const AppContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
-        loading,
-        setLoading,
-        searchResults,
-        selectedCategory,
-        setSelectedCategory,
-        mobileMenu,
-        setMobileMenu,
-        isSideBarVisible,
-        setSidebarVisible,
-        toggleSideBar,
-        username,
-        setUsername,
-        fullName,
-        setFullName,
-        email,
-        setEmail,
-        password,
-        setPassword,
-        avatar,
-        setAvatar,
-        profilePicture,
-        setProfilePicture,
-        // avatarPreview,
-        // setAvatarPreview,
-        // profilePicturePreview,
-        // setProfilePicturePreview,
-        loginUsername,
-        loginSetUsername,
-        loginPassword,
-        loginSetPassword,
-        videoCategory,
-        setVideoCategory,
-        videoType,
-        setVideoType,
-        title,
-        setTitle,
-        description,
-        setDescription,
-        thumbnail,
-        setThumbnail,
-        videoFile,
-        setVideoFile,
-        duration,
-        setDuration,
-        handleAddVideoToWatchHistory,
-      }}
+    loading,
+    setLoading,
+    username,
+    setUsername,
+    fullName,
+    setFullName,
+    email,
+    setEmail,
+    avatar,
+    setAvatar,
+    // ❌ remove searchResults, setSearchResults
+  }}
     >
       {children}
     </Context.Provider>

@@ -40,6 +40,13 @@ const User = () => {
     try {
       await axiosInstance.post("/users/logout", {}, { withCredentials: true });
       setUser(null);
+<<<<<<< HEAD
+=======
+      setAvatar(null);
+     
+      setUsername(null);
+      setEmail(null);
+>>>>>>> 5287a350f81315ed7c789d8d748ec5eee3c3feb9
       navigate("/");
     } catch (error) {
       console.error("Error logging out:", error);

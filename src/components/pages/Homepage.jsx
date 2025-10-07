@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/youtube-logo-png-2067.png";
 import { CiSearch } from "react-icons/ci";
-// import Avatar from 'react-avatar';
 import { IoMdMic } from "react-icons/io";
 import { videos } from "../../assets/video/videos.jsx";
 import VideoBox from "../pages/VideoBox.jsx";
@@ -11,48 +10,14 @@ import { Context } from "../../context/contextApi.jsx";
 
 const Homepage = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const { avatar, setAvatar } = useContext(Context);
-  const { username, setUsername } = useContext(Context);
+
+  // ✅ consume context values (already fetched in AppContext)
+  const { avatar, username, loading } = useContext(Context);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch(
-          "https://videos-wall.onrender.com/api/v1/users/current-user",
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          }
-        );
-        console.log("Repone", response);
-        console.log(localStorage.getItem("accessToken"));
-        // console.log("Response:", response);
-
-        if (response.ok) {
-          const data = await response.json();
-          setUser({
-            avatar: data?.avatar?.url || "https://via.placeholder.com/40",
-            name: data?.fullName || "User",
-          });
-          setAvatar(data.user_id.avatar);
-          setUsername(data.user_id.username);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
-    fetchCurrentUser();
-  }, []);
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
@@ -117,17 +82,22 @@ const Homepage = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <button className="px-4 py-2 border bg-gray-100 rounded-r-full"><CiSearch className="text-xl" /></button>
-            <IoMdMic size={"40px"} className="ml-3 border rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200" />
+            <button className="px-4 py-2 border bg-gray-100 rounded-r-full">
+              <CiSearch className="text-xl" />
+            </button>
+            <IoMdMic
+              size={"40px"}
+              className="ml-3 border rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200"
+            />
           </div>
 
           {/* Right Corner - User Avatar or Sign In */}
           <div className="ml-4">
-            {user ? (
+            {loading ? (
+              <span className="text-gray-500">Loading...</span>
+            ) : username ? (
               <div className="flex items-center space-x-3">
-                <span className="text-gray-700 hidden md:inline">
-                  {username}
-                </span>
+                <span className="text-gray-700 hidden md:inline">{username}</span>
                 <img
                   src={avatar}
                   alt="User Avatar"
@@ -135,14 +105,12 @@ const Homepage = () => {
                 />
               </div>
             ) : (
-              <div>
-                <button
-                  onClick={() => navigate("/login")}
-                  className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700"
-                >
-                  Sign In
-                </button>
-              </div>
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700"
+              >
+                Sign In
+              </button>
             )}
           </div>
         </header>
