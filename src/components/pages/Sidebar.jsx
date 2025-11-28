@@ -5,7 +5,7 @@ import { FaHome, FaVideo, FaUser, FaCog } from "react-icons/fa"; // Example icon
 const Sidebar = ({ isOpen }) => {
   const links = [
     { to: "/", label: "Home", icon: <FaHome /> },
-    { to: "/videos", label: "Videos", icon: <FaVideo /> },
+    
     { to: "/user", label: "User Settings", icon: <FaUser /> },
   
   ];

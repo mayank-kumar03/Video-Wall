@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/youtube-logo-png-2067.png";
@@ -7,16 +7,80 @@ import { IoMdMic } from "react-icons/io";
 import { videos } from "../../assets/video/videos.jsx";
 import VideoBox from "../pages/VideoBox.jsx";
 import { Context } from "../../context/contextApi.jsx";
+import { fetchTrendingVideos, searchVideos } from "../../utils/youtubeService";
 
 const Homepage = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [youtubeVideos, setYoutubeVideos] = useState([]);
+  const [loadingVideos, setLoadingVideos] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   // ✅ consume context values (already fetched in AppContext)
   const { avatar, username, loading } = useContext(Context);
 
+  useEffect(() => {
+    const loadVideos = async () => {
+      setLoadingVideos(true);
+      try {
+        const trending = await fetchTrendingVideos(20);
+        if (trending.length > 0) {
+          setYoutubeVideos(trending);
+        } else {
+          // Fallback to static videos if YouTube API fails
+          setYoutubeVideos(videos);
+        }
+      } catch (error) {
+        console.error("Error loading videos:", error);
+        // Fallback to static videos
+        setYoutubeVideos(videos);
+      } finally {
+        setLoadingVideos(false);
+      }
+    };
+
+    loadVideos();
+  }, []);
+
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) {
+      // If search is empty, reload trending videos
+      setLoadingVideos(true);
+      try {
+        const trending = await fetchTrendingVideos(20);
+        if (trending.length > 0) {
+          setYoutubeVideos(trending);
+        } else {
+          setYoutubeVideos(videos);
+        }
+      } catch (error) {
+        console.error("Error loading videos:", error);
+        setYoutubeVideos(videos);
+      } finally {
+        setLoadingVideos(false);
+      }
+      return;
+    }
+
+    setLoadingVideos(true);
+    try {
+      const results = await searchVideos(searchQuery.trim(), 20);
+      if (results.length > 0) {
+        setYoutubeVideos(results);
+      } else {
+        setYoutubeVideos(videos);
+      }
+    } catch (error) {
+      console.error("Error searching videos:", error);
+      setYoutubeVideos(videos);
+    } finally {
+      setLoadingVideos(false);
+    }
   };
 
   return (
@@ -62,9 +126,11 @@ const Homepage = () => {
       <div className="flex-grow">
         {/* Navbar */}
         <header className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-          <div className="flex relative w-full md:w-2/3 mx-auto">
+          <form onSubmit={handleSearch} className="flex relative w-full md:w-2/3 mx-auto">
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search videos..."
               className="w-full py-2 pl-10 pr-4 border rounded-l-full border-gray-300 focus:outline-none focus:ring focus:ring-red-300"
             />
@@ -82,14 +148,14 @@ const Homepage = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <button className="px-4 py-2 border bg-gray-100 rounded-r-full">
+            <button type="submit" className="px-4 py-2 border bg-gray-100 rounded-r-full hover:bg-gray-200 transition-colors">
               <CiSearch className="text-xl" />
             </button>
             <IoMdMic
               size={"40px"}
               className="ml-3 border rounded-full p-2 cursor-pointer hover:bg-gray-200 duration-200"
             />
-          </div>
+          </form>
 
           {/* Right Corner - User Avatar or Sign In */}
           <div className="ml-4">
@@ -118,13 +184,29 @@ const Homepage = () => {
         {/* Main Section */}
         <main className="p-8">
           <h2 className="text-3xl font-bold mb-6 text-gray-800">
-            Trending Videos
+            {searchQuery.trim() ? `Search Results for "${searchQuery}"` : "Trending Videos"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {videos.map((video) => (
-              <VideoBox key={video.id} name={video.name} link={video.link} />
-            ))}
-          </div>
+          {loadingVideos ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="text-gray-600">Loading videos...</div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {youtubeVideos.map((video) => (
+                <VideoBox
+                  key={video.id || video.videoId}
+                  name={video.name}
+                  link={video.link}
+                  title={video.title}
+                  thumbnailUrl={video.thumbnailUrl}
+                  channelName={video.channelName}
+                  viewCount={video.viewCount}
+                  publishedAt={video.publishedAt}
+                  videoId={video.videoId || video.id}
+                />
+              ))}
+            </div>
+          )}
         </main>
 
         {/* Footer */}
