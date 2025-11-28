@@ -52,48 +52,43 @@ const User = () => {
   const [avatarFile, setAvatarFile] = useState(null);
   const [coverFile, setCoverFile] = useState(null);
 
-<<<<<<< HEAD
   useEffect(() => {
     setProfileForm({
       fullName: fullName || "",
       email: email || "",
     });
   }, [fullName, email]);
-=======
+
   // Fetch current user details
-  const fetchCurrentUser = async () => {
-    try {
-      const response = await axiosInstance.get("/users/current-user");
-      setAvatar(response.data.user_id.avatar);
-      setUser(response.data);
-      setUsername(response.data.user_id.username);
-      setEmail(response.data.user_id.email);
-    } catch (error) {
-      console.error("Error fetching current user:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchCurrentUser = async () => {
+  //   try {
+  //     const response = await axiosInstance.get("/users/current-user");
+  //     setAvatar(response.data.user_id.avatar);
+  //     setUser(response.data);
+  //     setUsername(response.data.user_id.username);
+  //     setEmail(response.data.user_id.email);
+  //   } catch (error) {
+  //     console.error("Error fetching current user:", error);
+  //     setUser(null);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   // Logout user
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/users/logout", {}, { withCredentials: true });
       setUser(null);
-<<<<<<< HEAD
-=======
       setAvatar(null);
      
       setUsername(null);
       setEmail(null);
->>>>>>> 5287a350f81315ed7c789d8d748ec5eee3c3feb9
       navigate("/");
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
->>>>>>> 2aa8218b2dc56ccc4d099276e3dbe9331c974043
 
   useEffect(() => {
     fetchCurrentUser();
