@@ -25,6 +25,8 @@
 - **Get User Channel Profile**: View channel profile, including subscriber counts and subscription status.
 - **Watch History**: Retrieve watch history, including details about watched videos.
 
+-**Explore Backend repo**: https://github.com/mayank-kumar03/My-Youtube
+
 ---
 
 ## 🚀 Technologies Used
