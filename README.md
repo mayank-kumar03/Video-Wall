@@ -53,17 +53,6 @@
 
 ---
 
-## 📂 Project Structure
 
-### Frontend
-youtube-frontend/
-├── public/ # Static files
-├── src/ # Source files
-│ ├── components/ # Reusable components
-│ ├── pages/ # Page components
-│ ├── styles/ # CSS files
-│ ├── App.jsx # Main application component
-│ └── index.jsx # Entry point
-├── package.json # Project metadata and dependencies
-└── vite.config.js # Vite configuration
+
 
